@@ -57,7 +57,7 @@ namespace MVCPracticaArqdSoft.Data {
                         Id = Convert.ToInt32(dataReader["ContactId"]),
                         Name = dataReader["ContactName"].ToString(),
                         PhoneNumber = dataReader["PhoneNumber"].ToString(),
-                        Email = dataReader["Email"] != null ? dataReader["Email"].ToString() : "SIN EMAIL",
+                        Email = dataReader["ContactEmail"] != null ? dataReader["Email"].ToString() : "SIN EMAIL",
                         Password = dataReader["ContactPassword"].ToString()
                     });
                 }
@@ -82,13 +82,11 @@ namespace MVCPracticaArqdSoft.Data {
                 connection.Close();
 
                 while (dataReader.Read()) {
-                    contact = new ContactModel () {
-                        Id = Convert.ToInt32(dataReader["ContactId"]),
-                        Name = dataReader["ContactName"].ToString(),
-                        PhoneNumber = dataReader["PhoneNumber"].ToString(),
-                        Email = dataReader["Email"] != null ? dataReader["Email"].ToString() : "SIN EMAIL",
-                        Password = dataReader["ContactPassword"].ToString()
-                    };
+                    contact.Id = Convert.ToInt32(dataReader["ContactId"]);
+                    contact.Name = dataReader["ContactName"].ToString();
+                    contact.PhoneNumber = dataReader["PhoneNumber"].ToString();
+                    contact.Email = dataReader["ContactEmail"] != null ? dataReader["Email"].ToString() : "SIN EMAIL";
+                    contact.Password = dataReader["ContactPassword"].ToString();
                 }
                 dataReader.Close();
             }
