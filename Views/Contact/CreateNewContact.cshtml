@@ -5,7 +5,7 @@
 }
 
 <div class="card col-6 mx-auto">
-    <h1 class="card-header">Crear nuevo contacto</h1>
+    <h1 class="card-header"><i class="bi bi-person-plus-fill"></i> Crear nuevo contacto</h1>
     <form asp-controller="Contact" asp-action="CreateNewContact" method="post" class="card-body">
         <div class="mb-3">
             <label for="name">Nombre:</label>
@@ -31,8 +31,8 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
-            <a asp-controller="Contact" asp-action="ViewContacts">Ver contactos</a>
-            <button type="submit" class="btn btn-outline-success col-4">Guardar</button>
+            <a type="button" class="btn btn-primary" asp-controller="Contact" asp-action="ViewContacts"><i class="bi bi-arrow-left"></i> Volver</a>
+            <button type="submit" class="btn btn-outline-success col-4">Guardar <i class="bi bi-floppy"></i></button>
         </div>
     </form>
 </div>

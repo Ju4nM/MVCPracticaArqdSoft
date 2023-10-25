@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Contactos registrados</h1>
-
+<h1>Contactos registrados <i class="bi bi-person-lines-fill"></i></h1>
+<a asp-controller="Contact" asp-action="CreateNewContact" class="btn btn-outline-success">Agregar nuevo contacto <i class="bi bi-plus-circle"></i></a>
 <div class="py-5 row">
     @if (Model.Count == 0) {
         <h3 class="fw-bold col-12 mx-auto text-center text-secondary">No se encontraron registros</h3>
@@ -13,7 +13,7 @@
     }
 
     @foreach (ContactModel contact in Model) {
-        <div class="col-3">
+        <div class="col-3 mb-4">
             <div class="card">
                 <h4 class="card-header">@contact.Name</h4>
                 <div class="card-body">
@@ -25,10 +25,10 @@
                 </div>
                 <div class="card-footer btn-group">
                     <a asp-controller="Contact" asp-action="UpdateContact" asp-route-contactId="@contact.Id" class="btn btn-warning">
-                        Editar
+                        <i class="bi bi-pencil-square"></i> Editar
                     </a>
                     <a asp-controller="Contact" asp-action="DeleteContact" asp-route-contactId="@contact.Id" class="btn btn-danger">
-                        Eliminar
+                        Eliminar <i class="bi bi-trash"></i>
                     </a>
                 </div>
             </div>
