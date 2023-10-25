@@ -18,9 +18,34 @@ namespace MVCPracticaArqdSoft.Controllers {
 
         [HttpPost]
         public IActionResult CreateNewContact (ContactModel newContact) {
+            if (!ModelState.IsValid) return View();
+
             bool result = contactData.SaveOne(newContact);
-            if (result) return View("ViewContacts");
+            if (result) return RedirectToAction("ViewContacts");
+
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult UpdateContact (int contactId) {
+            ContactModel currentContact = contactData.FindOne(contactId);
+            return View(currentContact);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateContact (ContactModel newContactData) {
+            if (!ModelState.IsValid) return View(newContactData);
+
+            bool result = contactData.UpdateOne(newContactData.Id, newContactData);
+            if (result) return RedirectToAction("ViewContacts");
+
+            return View(newContactData);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteContact (int contactId) {
+            contactData.DeleteOne(contactId);
+            return RedirectToAction("ViewContacts");
         }
     }
 }

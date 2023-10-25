@@ -1,8 +1,37 @@
-﻿
+﻿@model List<ContactModel>;
 @{
     ViewData["Title"] = "Contactos registrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ViewContacts</h1>
+<h1>Contactos registrados</h1>
 
+<div class="py-5 row">
+    @if (Model.Count == 0) {
+        <h3 class="fw-bold col-12 mx-auto text-center text-secondary">No se encontraron registros</h3>
+        <h5 class="col-12 text-center text-secondary">Registra uno <a asp-controller="Contact" asp-action="CreateNewContact">aqui</a></h5>
+    }
+
+    @foreach (ContactModel contact in Model) {
+        <div class="col-3">
+            <div class="card">
+                <h4 class="card-header">@contact.Name</h4>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="fw-bold">Telefono:</span> @contact.PhoneNumber</li>
+                        <li class="list-group-item"><span class="fw-bold">Correo:</span> @contact.Email</li>
+                        <li class="list-group-item"><span class="fw-bold">Clave:</span> @contact.Password</li>
+                    </ul>
+                </div>
+                <div class="card-footer btn-group">
+                    <a asp-controller="Contact" asp-action="UpdateContact" asp-route-contactId="@contact.Id" class="btn btn-warning">
+                        Editar
+                    </a>
+                    <a asp-controller="Contact" asp-action="DeleteContact" asp-route-contactId="@contact.Id" class="btn btn-danger">
+                        Eliminar
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

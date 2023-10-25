@@ -1,39 +1,41 @@
 ﻿@model MVCPracticaArqdSoft.Models.ContactModel;
 @{
-    ViewData["Title"] = "Crear nuevo contacto";
+    ViewData["Title"] = "Actualizando Contacto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card col-6 mx-auto">
-    <h1 class="card-header">Crear nuevo contacto</h1>
-    <form asp-controller="Contact" asp-action="CreateNewContact" method="post" class="card-body">
+    <h1 class="card-header">Actualizando a @Model.Name</h1>
+    <form asp-controller="Contact" asp-action="UpdateContact" method="post" class="card-body">
+        <input type="hidden" value="@Model.Id" asp-for="Id"/>
         <div class="mb-3">
             <label for="name">Nombre:</label>
-            <input type="text" id="name" asp-for="Name" class="form-control" placeholder="Diana Escalante"/>
+            <input type="text" id="name" asp-for="Name" class="form-control" placeholder="Diana Escalante" />
             <span asp-validation-for="Name" class="fs-6 text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label for="phoneNumber">Numero de telefono:</label>
-            <input type="text" id="phoneNumber" asp-for="PhoneNumber" class="form-control" placeholder="6441-12-43-45"/>
+            <input type="text" id="phoneNumber" asp-for="PhoneNumber" class="form-control" placeholder="6441-12-43-45" />
             <span asp-validation-for="PhoneNumber" class="fs-6 text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label for="mail">Email:</label>
-            <input type="text" id="mail" asp-for="Email" class="form-control" placeholder="correo@example.com"/>
+            <input type="text" id="mail" asp-for="Email" class="form-control" placeholder="correo@example.com" />
         </div>
 
         <div class="mb-3">
             <label for="passwd">Clave:</label>
-            <input type="password" id="passwd" asp-for="Password" class="form-control" placeholder="*********"/>
+            <input type="password" id="passwd" asp-for="Password" class="form-control" placeholder="*********" />
             <span asp-validation-for="Password" class="fs-6 text-danger"></span>
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
             <a asp-controller="Contact" asp-action="ViewContacts">Ver contactos</a>
-            <button type="submit" class="btn btn-outline-success col-4">Guardar</button>
+            <button type="submit" class="btn btn-outline-warning col-4">Actualizar</button>
         </div>
     </form>
 </div>
+
 

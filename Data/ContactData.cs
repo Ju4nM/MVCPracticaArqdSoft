@@ -23,7 +23,7 @@ namespace MVCPracticaArqdSoft.Data {
 
                     command.Parameters.AddWithValue("contactName", newContact.Name);
                     command.Parameters.AddWithValue("phoneNumber", newContact.PhoneNumber);
-                    command.Parameters.AddWithValue("contactEmail", newContact.Email);
+                    command.Parameters.AddWithValue("contactEmail", newContact.Email ?? "SIN EMAIL");
                     command.Parameters.AddWithValue("contactPassword", newContact.Password);
 
                     command.ExecuteNonQuery();
@@ -50,17 +50,18 @@ namespace MVCPracticaArqdSoft.Data {
                 };
 
                 SqlDataReader dataReader = command.ExecuteReader();
-                connection.Close();
 
                 while (dataReader.Read()) {
-                    contacts.Add(new () {
+                    contacts.Add(new() {
                         Id = Convert.ToInt32(dataReader["ContactId"]),
                         Name = dataReader["ContactName"].ToString(),
                         PhoneNumber = dataReader["PhoneNumber"].ToString(),
-                        Email = dataReader["ContactEmail"] != null ? dataReader["Email"].ToString() : "SIN EMAIL",
+                        Email = dataReader["ContactEmail"].ToString(),
                         Password = dataReader["ContactPassword"].ToString()
                     });
                 }
+
+                connection.Close();
                 dataReader.Close();
             }
 
@@ -79,15 +80,16 @@ namespace MVCPracticaArqdSoft.Data {
                 command.Parameters.AddWithValue("contactId", contactId);
 
                 SqlDataReader dataReader = command.ExecuteReader();
-                connection.Close();
 
                 while (dataReader.Read()) {
                     contact.Id = Convert.ToInt32(dataReader["ContactId"]);
                     contact.Name = dataReader["ContactName"].ToString();
                     contact.PhoneNumber = dataReader["PhoneNumber"].ToString();
-                    contact.Email = dataReader["ContactEmail"] != null ? dataReader["Email"].ToString() : "SIN EMAIL";
+                    contact.Email = dataReader["ContactEmail"].ToString();
                     contact.Password = dataReader["ContactPassword"].ToString();
                 }
+
+                connection.Close();
                 dataReader.Close();
             }
 
@@ -105,6 +107,8 @@ namespace MVCPracticaArqdSoft.Data {
             newData.Email ??= currentData.Email;
             newData.Password ??= currentData.Password;
 
+            newData.Email = newData.Email == "" ? "SIN EMAIL" : newData.Email;
+
             try {
                 using (SqlConnection connection = new (connectionString)) {
 
@@ -119,10 +123,10 @@ namespace MVCPracticaArqdSoft.Data {
                     command.Parameters.AddWithValue("contactEmail", newData.Email);
                     command.Parameters.AddWithValue("contactPassword", newData.Password);
 
-                    command.ExecuteNonQuery();
+                    int rowsAffected = command.ExecuteNonQuery();
                     connection.Close();
 
-                    return true; // if everthing is fine
+                    return rowsAffected == 1; // if everthing is fine
                 }
 
             } catch (Exception e) {
