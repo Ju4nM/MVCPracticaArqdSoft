@@ -43,9 +43,16 @@ namespace MVCPracticaArqdSoft.Controllers {
         }
 
         [HttpGet]
-        public IActionResult DeleteContact (int contactId) {
-            contactData.DeleteOne(contactId);
-            return RedirectToAction("ViewContacts");
+        public IActionResult DeleteContact(int contactId) {
+            ContactModel contact = contactData.FindOne(contactId);
+            return View(contact);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteContact(ContactModel contact) {
+            bool result = contactData.DeleteOne(contact.Id);
+            if (result) return RedirectToAction("ViewContacts");
+            return View(contact);
         }
     }
 }
